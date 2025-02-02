@@ -1,0 +1,43 @@
+[project]
+name = 'smiling'
+
+[tool.basedpyright]
+strict = ['smiling/*.py']
+typeCheckingMode = 'basic'
+
+[tool.pixi.project]
+channels = ['conda-forge']
+platforms = ['win-64']
+
+[tool.pixi.pypi-options]
+index-url = 'https://mirrors.cernet.edu.cn/pypi/web/simple'
+
+[tool.pixi.dependencies]
+beautifulsoup4 = '*'
+ffmpeg = { version = '*', build = 'gpl_*' }
+httpx = '>=0.28.0'
+pydantic-settings = '>=2.3.0'
+python = '>=3.12.0'
+rich-argparse = '>=1.6.0'
+urllib3 = '>=2.0.0'
+
+[tool.pixi.pypi-dependencies]
+m3u8 = '>=5.2.0'
+
+[tool.pixi.tasks]
+download = 'python -m smiling'
+
+[tool.smiling]
+parallel = 5
+
+[tool.smiling.hosts]
+'www.nicovideo.jp' = 'futuregadget-lab.com'
+'nvapi.nicovideo.jp' = 'futuregadget-lab.com'
+'delivery.domand.nicovideo.jp' = 'futuregadget-lab.com'
+'asset.domand.nicovideo.jp' = 'futuregadget-lab.com'
+
+[tool.smiling.sni_hostname]
+'www.nicovideo.jp' = 'cloudfront.net'
+'nvapi.nicovideo.jp' = 'cloudfront.net'
+'delivery.domand.nicovideo.jp' = 'cloudfront.net'
+'asset.domand.nicovideo.jp' = 'cloudfront.net'
