@@ -13,6 +13,7 @@ from typing import cast
 from typing import override
 
 import cffi
+import rich.logging
 
 from . import _downloader
 from . import _parser
@@ -87,15 +88,15 @@ async def _states(level: int):
             backupCount=10,
             encoding='utf-8',
         )
+        handler.setFormatter(
+            logging.Formatter(
+                '[{asctime}] {levelname:8} {message}',
+                datefmt='%Y-%m-%d %X',
+                style='{',
+            ),
+        )
     else:
-        handler = logging.StreamHandler()
-    handler.setFormatter(
-        logging.Formatter(
-            '[{asctime}] {levelname:8} {message}',
-            datefmt='%Y-%m-%d %X',
-            style='{',
-        ),
-    )
+        handler = rich.logging.RichHandler()
     logger = logging.getLogger(__package__)
     logger.addHandler(handler)
     logger.setLevel(level)
