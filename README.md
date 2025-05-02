@@ -4,7 +4,7 @@
 - [pixi][2]
 ## Usage
 ```sh
-pixi r download --help
+pixi r get --help
 ```
 ## Credits
 - [accesser][3]
