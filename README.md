@@ -6,7 +6,7 @@
 ```sh
 pixi r get --help
 ```
-## Credits
+## Acknowledgements
 - [accesser][3]
 - [nndownload][4]
 - [yt-dlp][5]
