@@ -7,7 +7,7 @@ requires-python = '>=3.12'
 strict = ['smiling/*.py']
 typeCheckingMode = 'basic'
 
-[tool.pixi.project]
+[tool.pixi.workspace]
 channels = ['conda-forge']
 platforms = ['win-64']
 
