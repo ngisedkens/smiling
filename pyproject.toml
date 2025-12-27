@@ -13,6 +13,7 @@ platforms = ['win-64']
 
 [tool.pixi.dependencies]
 beautifulsoup4 = '*'
+cffi = '*'
 ffmpeg = { version = '*', build = 'gpl_*' }
 httpx = '>=0.28.0'
 pydantic-settings = '>=2.6.0'
