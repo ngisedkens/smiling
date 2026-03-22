@@ -1,7 +1,7 @@
 [project]
 name = 'smiling'
 version = '0.1.0'
-requires-python = '>=3.12'
+requires-python = '>=3.14'
 
 [tool.basedpyright]
 strict = ['smiling/*.py']
@@ -16,12 +16,10 @@ beautifulsoup4 = '*'
 cffi = '*'
 ffmpeg = { version = '*', build = 'gpl_*' }
 httpx = '>=0.28.0'
-pydantic-settings = '>=2.6.0'
-rich-argparse = '>=1.6.0'
-urllib3 = '>=2.0.0'
-
-[tool.pixi.pypi-dependencies]
 m3u8 = '>=5.2.0'
+pydantic-settings = '>=2.6.0'
+rich = '>=14.2.0'
+urllib3 = '>=2.0.0'
 
 [tool.pixi.tasks]
 get = 'python -m smiling'

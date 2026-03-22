@@ -4,7 +4,6 @@ from typing import Annotated
 
 import pydantic
 import pydantic_settings
-import rich_argparse
 
 from . import _main
 from . import _parser
@@ -12,13 +11,7 @@ from ._types import Format
 
 
 def main():
-    pydantic_settings.CliApp.run(
-        _Main,
-        cli_settings_source=pydantic_settings.CliSettingsSource(
-            _Main,
-            formatter_class=rich_argparse.RawDescriptionRichHelpFormatter,
-        ),
-    )
+    pydantic_settings.CliApp.run(_Main)
 
 
 class _Main(pydantic_settings.BaseSettings):
