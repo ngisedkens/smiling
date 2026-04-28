@@ -14,14 +14,11 @@ import subprocess
 import time
 from typing import Any
 from typing import override
-from typing import TYPE_CHECKING
 
 import httpcore
 import httpx
 import pydantic
 from urllib3.util import ssl_match_hostname
-if TYPE_CHECKING:
-    from urllib3.util.ssl_ import _TYPE_PEER_CERT_RET_DICT  # pyright: ignore[reportPrivateUsage]
 
 from . import _main
 from . import _parser
@@ -202,9 +199,7 @@ class _AsyncIOStream(httpcore.AsyncNetworkStream):
             ssl_handshake_timeout=timeout,
             ssl_shutdown_timeout=timeout,
         )
-        peercert: _TYPE_PEER_CERT_RET_DICT | None = self._writer.get_extra_info(
-            'peercert',
-        )
+        peercert = self._writer.get_extra_info('peercert')
         if server_hostname:
             ssl_match_hostname.match_hostname(peercert, server_hostname)
         return self
