@@ -22,8 +22,8 @@ from typing import TypedDict
 
 from annotated_types import Le
 import cffi
-import httpcore
-import httpx
+import httpcore2 as httpcore
+import httpx2 as httpx
 import pydantic
 import pydantic_settings
 

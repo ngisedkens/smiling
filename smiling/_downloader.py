@@ -15,8 +15,8 @@ import time
 from typing import Any
 from typing import override
 
-import httpcore
-import httpx
+import httpcore2 as httpcore
+import httpx2 as httpx
 import pydantic
 from urllib3.util import ssl_match_hostname
 
@@ -106,7 +106,7 @@ def prepare(hosts: dict[str, str], sni_hostname: dict[str, str]):
         url = request.url
         host = url.host
         if host in hosts:
-            # https://www.python-httpx.org/advanced/extensions/#sni_hostname
+            # https://httpx2.pydantic.dev/advanced/extensions/#sni_hostname
             request.extensions['sni_hostname'] = sni_hostname.get(host, host)  # pyright: ignore[reportUnknownMemberType]
             request.headers['Host'] = host
         if _logger.isEnabledFor(logging.DEBUG):
