@@ -107,7 +107,7 @@ def prepare(hosts: dict[str, str], sni_hostname: dict[str, str]):
         host = url.host
         if host in hosts:
             # https://httpx2.pydantic.dev/advanced/extensions/#sni_hostname
-            request.extensions['sni_hostname'] = sni_hostname.get(host, host)  # pyright: ignore[reportUnknownMemberType]
+            request.extensions['sni_hostname'] = sni_hostname.get(host, host)
             request.headers['Host'] = host
         if _logger.isEnabledFor(logging.DEBUG):
             url = str(url)
@@ -247,8 +247,8 @@ async def _m3u8_concat(
     buf2 = bytearray(sum(map(len, segments), n))
     buf2[:n] = header
     with (
-        ffi.from_buffer('uint8_t[]', buf1, require_writable=True) as a,  # pyright: ignore[reportUnknownVariableType]
-        ffi.from_buffer('uint8_t[]', buf2, require_writable=True) as b,  # pyright: ignore[reportUnknownVariableType]
+        ffi.from_buffer('uint8_t[]', buf1, require_writable=True) as a,
+        ffi.from_buffer('uint8_t[]', buf2, require_writable=True) as b,
     ):
         err = lib.av_aes_init(a, key, 128, 1)
         assert not err
