@@ -13,7 +13,7 @@ import m3u8
 from ._types import Content
 from ._types import M3U8
 
-pattern = re.compile(r'\b((?:sm|nm|so)\d+)\b')
+pattern = re.compile(r'\b((?:sm|nm|so|ss)\d+)\b')
 
 
 def parse_html(markup: str):
