@@ -1,0 +1,74 @@
+#:schema https://pixi.prefix.dev/v0.71.0/schema/manifest/schema.json
+
+[workspace]
+channels = ['conda-forge']
+preview = ['pixi-build']
+requires-pixi = '>=0.71.0'
+
+[[workspace.platforms]]
+platform = 'win-64'
+archspec = 'skylake'
+
+[workspace.build-variants]
+cxx_compiler = ['vs']
+cxx_compiler_version = ['2026.1']
+
+[package.build.backend]
+name = 'pixi-build-python'
+version = '>=0.6.0'
+channels = ['conda-forge']
+
+[package.build.config]
+compilers = ['cxx']
+ignore-pypi-mapping = true
+
+[package.build-dependencies]
+cmake = '>=4.0.0'
+ninja = '>=1.11.1'
+x86_64-microarch-level = '==3'
+
+[package.host-dependencies]
+ffmpeg = { build = 'gpl_*' }
+nanobind = '>=3.0.1'
+python-gil = '3.14.*'
+scikit-build-core = '>=1.0.0'
+uv = '>=0.12.0'
+
+[package.run-dependencies]
+beautifulsoup4 = '*'
+fastapi-core = '>=0.119.1'
+hishel = '>=1.0.0'
+m3u8 = '>=6.0.0'
+zapros = '>=0.17.0'
+
+[environments]
+default = ['python']
+cpp = ['cpp']
+
+[feature.python.dependencies]
+granian-with-winloop = '>=2.7.0'
+smiling = { path = '.' }
+
+[feature.python.pypi-dependencies]
+pyreqwest = '*'
+
+[feature.python.tasks.serve]
+cmd = 'granian --http 1 --interface asgi --no-ws --port {{ port }} smiling:app'
+env = { PYTHONNODEBUGRANGES = '1' }
+
+[[feature.python.tasks.serve.args]]
+arg = 'port'
+default = '2525'
+
+[feature.cpp.dependencies]
+cmake = '>=4.0.0'
+ffmpeg = { build = 'gpl_*' }
+nanobind = '>=3.0.1'
+ninja = '>=1.11.1'
+python-gil = '3.14.*'
+vs_win-64 = '2026.1.*'
+
+[feature.cpp.tasks.configure]
+cmd = 'cmake -Bbuild -DCMAKE_BUILD_TYPE=Release -GNinja'
+inputs = ['CMakeLists.txt']
+outputs = ['build/compile_commands.json']

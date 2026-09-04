@@ -1,5 +1,9 @@
+# pixi environments
+.pixi/*
+!.pixi/config.toml
+
 __pycache__
-/log
+/build
 /output
-/.pixi
+/.cache
 /pixi.lock

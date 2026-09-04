@@ -1,40 +1,26 @@
+[build-system]
+requires = [
+    'nanobind >=3.0.1',
+    'scikit-build-core >=1.0.0',
+]
+build-backend = 'scikit_build_core.build'
+
 [project]
 name = 'smiling'
-version = '0.1.0'
+version = '0.2.0'
 requires-python = '>=3.14'
+license = 'GPL-2.0-only'
+dependencies = [
+    'beautifulsoup4',
+    'hishel[fastapi] >=1.0.0',
+    'm3u8 >=6.0.0',
+    'zapros[pyreqwest] >=0.17.0',
+]
 
 [tool.basedpyright]
-strict = ['smiling/*.py']
-typeCheckingMode = 'basic'
+strict = ['src']
+typeCheckingMode = 'off'
 
-[tool.pixi.workspace]
-channels = ['conda-forge']
-platforms = ['win-64']
-
-[tool.pixi.dependencies]
-beautifulsoup4 = '*'
-cffi = '*'
-ffmpeg = { version = '*', build = 'gpl_*' }
-httpx2 = '>=2.2.0'
-m3u8 = '>=5.2.0'
-pydantic-settings = '>=2.6.0'
-rich = '>=14.2.0'
-urllib3 = '>=2.0.0'
-
-[tool.pixi.tasks]
-get = 'python -m smiling'
-
-[tool.smiling]
-parallel = 5
-
-[tool.smiling.hosts]
-'www.nicovideo.jp' = 'futuregadget-lab.com'
-'nvapi.nicovideo.jp' = 'futuregadget-lab.com'
-'delivery.domand.nicovideo.jp' = 'futuregadget-lab.com'
-'asset.domand.nicovideo.jp' = 'futuregadget-lab.com'
-
-[tool.smiling.sni_hostname]
-'www.nicovideo.jp' = 'cloudfront.net'
-'nvapi.nicovideo.jp' = 'cloudfront.net'
-'delivery.domand.nicovideo.jp' = 'cloudfront.net'
-'asset.domand.nicovideo.jp' = 'cloudfront.net'
+[[tool.scikit-build.overrides]]
+if.env.CONDA_BUILD = true
+cmake.args = ['-GNinja']
