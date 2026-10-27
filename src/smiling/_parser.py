@@ -3,7 +3,7 @@ __all__ = [
     'parse_m3u8',
 ]
 
-from typing import Annotated, Literal
+from typing import Annotated, Literal, TypedDict
 
 import bs4
 import m3u8
@@ -16,7 +16,7 @@ def parse_html(markup: str):
         attrs={'name': 'server-response', 'content': True},
     ):
         case bs4.Tag(attrs={'content': str(content)}):
-            return _Content.model_validate_json(content).data.response
+            return _Content.model_validate_json(content).data.response["$watchV4"].data
         case _:
             raise LookupError()
 
@@ -41,8 +41,7 @@ class _DomandItem(pydantic.BaseModel, extra='ignore'):
     qualityLevel: pydantic.NonNegativeInt
 
 
-class _Domand(pydantic.BaseModel, extra='ignore'):
-    accessRightKey: str
+class _Contents(pydantic.BaseModel, extra='ignore'):
     audios: list[_DomandItem]
     videos: list[_DomandItem]
 
@@ -93,29 +92,30 @@ class _M3U8(pydantic.BaseModel, extra='ignore'):
 
 
 class _Media(pydantic.BaseModel, extra='ignore'):
-    domand: _Domand | None = None
+    accessRightKey: str
+    contents: _Contents | None = None
 
 
-class _PaymentVideo(pydantic.BaseModel, extra='ignore'):
-    isAdmission: Literal[False]
-    isPremium: Literal[False]
-    isPpv: Literal[False]
-
-
-class _Payment(pydantic.BaseModel, extra='ignore'):
-    video: _PaymentVideo
+class _Permission(pydantic.BaseModel, extra='ignore'):
+    isDeleted: Literal[False]
 
 
 class _Video(pydantic.BaseModel, extra='ignore'):
     id: str
-    isDeleted: Literal[False]
+    permission: _Permission
 
 
-class _Response(pydantic.BaseModel, extra='ignore'):
+class _Data(pydantic.BaseModel, extra='ignore'):
     client: _Client
     media: _Media
-    payment: _Payment
     video: _Video
+
+
+class _WatchV4(pydantic.BaseModel, extra='ignore'):
+    data: _Data
+
+
+_Response = TypedDict("_Response", {"$watchV4": _WatchV4})
 
 
 class _ContentData(pydantic.BaseModel, extra='ignore'):

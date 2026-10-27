@@ -27,14 +27,14 @@ async def download(
         response = await client.get(f'https://www.nicovideo.jp/watch/{id_}')
         try:
             root = _parser.parse_html(response.text)
-            if dms := root.media.domand:
+            if dms := root.media.contents:
                 assert root.video.id == id_
                 response = await client.post(
                     f'https://nvapi.nicovideo.jp/v1/watch/{id_}/access-rights/hls',
                     json=dms.outputs(best=best),
                     params={'actionTrackId': root.client.watchTrackId},
                     headers={
-                        'X-Access-Right-Key': dms.accessRightKey,
+                        'X-Access-Right-Key': root.media.accessRightKey,
                         'X-Frontend-Id': '6',
                         'X-Frontend-Version': '0',
                         'X-Request-With': 'https://www.nicovideo.jp',
